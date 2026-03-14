@@ -676,7 +676,7 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
 
           <PhotoFrame src="/images/IMG_4250.JPG" caption="この笑顔が好き" alt="思い出の写真4" rotation={-1.5} />
           <PhotoFrame src="/images/IMG_2954.PNG" caption="この笑顔が好き" alt="思い出の写真5" rotation={2.5} />
-          <PhotoFrame src="/images/IMG_3556.PNG" caption="あなたといる時間" alt="思い出の写真6" rotation={-2} />
+          <PhotoFrame src="/images/IMG_3556.PNG" caption="ビデオ通話の癒しターイム！" alt="思い出の写真6" rotation={-2} />
 
           <div className="space-y-5 text-[#4A3F35] leading-loose font-light text-[0.97rem]" style={{ fontFamily: "var(--font-serif)" }}>
             <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
