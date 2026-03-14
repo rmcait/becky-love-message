@@ -658,7 +658,7 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
           {/* 本文 */}
           <div className="space-y-5 text-[#4A3F35] leading-loose font-light text-[0.97rem]" style={{ fontFamily: "var(--font-serif)" }}>
             <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-              久しぶり。元気にしてる？そろそろテストで忙しい時期やんな。あんまり無理しすぎんなよ。
+              久しぶり。元気にしてる？今日はホワイトデーやな。バレンタインのお返し、ちゃんとしたかってんけど、俺にできる一番の返し方はこれかなって思って、この手紙を書いた。
             </motion.p>
 
             <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}>
