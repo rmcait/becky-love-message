@@ -477,9 +477,9 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
 
           <Divider />
 
-          <PhotoFrame src="/images/IMG_0547.jpeg" caption="ここにキャプションを入れてね" alt="思い出の写真1" rotation={2} />
+          <PhotoFrame src="/images/IMG_0547.jpeg" caption="何気ないぶらり散歩" alt="思い出の写真1" rotation={2} />
           <PhotoFrame src="/images/IMG_0621.jpeg" caption="変顔テスト期間" alt="思い出の写真2" rotation={-2} />
-          <PhotoFrame src="/images/IMG_0861.jpeg" caption="一緒にいると楽しいね" alt="思い出の写真3" rotation={1.5} />
+          <PhotoFrame src="/images/IMG_0861.jpeg" caption="イチャイチャ金沢旅行" alt="思い出の写真3" rotation={1.5} />
 
           {/* 本文 */}
           <div className="space-y-5 text-[#4A3F35] leading-loose font-light text-[0.97rem]" style={{ fontFamily: "var(--font-serif)" }}>
