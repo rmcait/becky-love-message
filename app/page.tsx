@@ -354,14 +354,28 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
           </motion.p>
 
           <motion.p
-            className="text-xl font-bold leading-relaxed mt-5"
+            className="font-black leading-snug mt-5"
             style={{
               fontFamily: "var(--font-serif)",
+              fontSize: "clamp(1.4rem, 6vw, 2rem)",
               color: score === 3 ? "#ec4899" : score === 0 ? "#dc2626" : "#4A3F35",
+              textShadow: score === 3
+                ? "0 4px 20px rgba(236,72,153,0.35)"
+                : score === 0
+                ? "0 4px 20px rgba(220,38,38,0.3)"
+                : "none",
             }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            initial={{ opacity: 0, scale: 0.4 }}
+            animate={
+              score === 3
+                ? { opacity: 1, scale: [0.4, 1.25, 0.95, 1.05, 1], rotate: [0, -3, 3, -1, 0] }
+                : score === 0
+                ? { opacity: 1, scale: [0.4, 1.2, 1], x: [0, -10, 10, -8, 8, -4, 4, 0] }
+                : score === 1
+                ? { opacity: 1, scale: [0.4, 1.1, 1], y: [0, -8, 4, 0] }
+                : { opacity: 1, scale: [0.4, 1.05, 1] }
+            }
+            transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
           >
             {result.text}
           </motion.p>
