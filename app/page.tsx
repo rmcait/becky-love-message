@@ -661,7 +661,7 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
           <Divider symbol="❀" />
 
           <PhotoFrame src="/images/IMG_4250.JPG" caption="この笑顔が好き" alt="思い出の写真4" rotation={-1.5} />
-          <PhotoFrame src="/images/IMG_2954.PNG" caption="ずっと覚えてる" alt="思い出の写真5" rotation={2.5} />
+          <PhotoFrame src="/images/IMG_2954.PNG" caption="この笑顔が好き" alt="思い出の写真5" rotation={2.5} />
           <PhotoFrame src="/images/IMG_3556.PNG" caption="あなたといる時間" alt="思い出の写真6" rotation={-2} />
 
           <div className="space-y-5 text-[#4A3F35] leading-loose font-light text-[0.97rem]" style={{ fontFamily: "var(--font-serif)" }}>
