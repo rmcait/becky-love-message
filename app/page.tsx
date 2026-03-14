@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ============================================================
@@ -274,119 +274,6 @@ function PhotoFrame({
 }
 
 // ============================================================
-// SORRY METER (funny element)
-// ============================================================
-function SorryMeter() {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true);
-          let current = 0;
-          const target = 9999;
-          const step = 133;
-          const id = setInterval(() => {
-            current += step;
-            if (current >= target) {
-              setCount(target);
-              clearInterval(id);
-            } else {
-              setCount(current);
-            }
-          }, 20);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [started]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="my-10 rounded-2xl text-center relative overflow-hidden"
-      style={{
-        border: "2px dashed #E0C9A8",
-        background: "linear-gradient(135deg, #FFF9F2 0%, #FFF4E8 100%)",
-        padding: "28px 24px",
-      }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* Stamp decoration */}
-      <div
-        className="stamp absolute top-4 right-4 opacity-60"
-        style={{
-          border: "2px solid #DC5050",
-          borderRadius: "6px",
-          padding: "3px 6px",
-          color: "#DC5050",
-          fontSize: "9px",
-          fontWeight: 600,
-          letterSpacing: "0.12em",
-          lineHeight: 1.4,
-          textAlign: "center",
-        }}
-      >
-        GENUINE<br />SORRY
-      </div>
-
-      <p className="text-[#B09070] text-xs tracking-[0.45em] uppercase mb-3 font-light">
-        公式 ごめんなさいメーター
-      </p>
-
-      <motion.div
-        className="text-6xl font-bold text-rose-500 my-1 tabular-nums"
-        style={{ fontVariantNumeric: "tabular-nums" }}
-        animate={count >= 9999 ? { scale: [1, 1.08, 1] } : {}}
-        transition={{ duration: 0.3 }}
-      >
-        {count.toLocaleString()}
-        <span className="text-4xl">%</span>
-      </motion.div>
-
-      {/* Progress bar */}
-      <div className="w-full h-3 rounded-full overflow-hidden mt-5 mb-2" style={{ background: "#F0DEC8" }}>
-        <motion.div
-          className="h-full rounded-full"
-          style={{
-            background: "linear-gradient(90deg, #fb7185, #f43f5e, #ec4899)",
-          }}
-          initial={{ width: "0%" }}
-          animate={{ width: started ? "100%" : "0%" }}
-          transition={{ duration: 2.8, ease: "easeOut" }}
-        />
-      </div>
-
-      <AnimatePresence>
-        {count >= 9999 && (
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-rose-400 text-xs mt-3"
-          >
-            ⚠️ メーターが振り切れました。ごめんなさいが溢れています。
-          </motion.p>
-        )}
-      </AnimatePresence>
-
-      <p className="text-[#B09878] text-xs mt-3 font-light">
-        ※ これは科学的に正確な測定値です
-      </p>
-    </motion.div>
-  );
-}
-
-// ============================================================
 // LOVE REASONS
 // ============================================================
 function LoveReasons() {
@@ -549,9 +436,6 @@ function LetterPage() {
               怒らせてごめんなさい。でもね、怒ってるあなたも可愛くて、それを言ったらもっと怒られそうで言えなかった。
             </motion.p>
           </div>
-
-          {/* Sorry meter */}
-          <SorryMeter />
 
           {/* Love reasons */}
           <LoveReasons />
