@@ -195,10 +195,10 @@ function PhotoFrame({ src, caption, alt, rotation = 2 }: { src: string; caption:
 // ============================================================
 function LoveReasons() {
   const reasons = [
-    { icon: "", text: "Beckyの笑顔が、俺の一番の原動力" },
-    { icon: "", text: "Beckyのためなら、どんなことも頑張れる" },
-    { icon: "", text: "離れてても、いつもそばにいる気がする" },
-    { icon: "", text: "Beckyの存在が、俺を前に進ませてくれる" },
+    { icon: "", text: "俺を前に進ませてくれる" },
+    { icon: "", text: "言葉をいつもかけてくれる" },
+    { icon: "", text: "たっくさんの笑顔を俺に見せてくれる" },
+    { icon: "", text: "離れていてもそばにいるような雰囲気作りができる" },
     { icon: "", text: "これからの未来を、Beckyと一緒に作っていきたい" },
   ];
 
