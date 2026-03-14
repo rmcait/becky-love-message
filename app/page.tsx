@@ -661,16 +661,6 @@ function MiniLetter({ onBack }: { onBack: () => void }) {
               <br />Babyさせないとねえ〜
             </motion.p>
 
-            {/* カウントダウン */}
-            <motion.p
-              className="text-[#C8A882] text-xs mt-8 tracking-widest"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              {countdown}秒後に最初に戻ります
-            </motion.p>
-
             {/* プログレスバー */}
             <div className="w-full h-1 rounded-full mt-2 overflow-hidden" style={{ background: "#F0DEC8" }}>
               <motion.div
