@@ -264,7 +264,7 @@ const quizData = [
   },
 ];
 
-function QuizScreen({ onBack }: { onBack: () => void }) {
+function QuizScreen({ onNext }: { onNext: () => void }) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
@@ -382,14 +382,14 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            onClick={onBack}
+            onClick={onNext}
             className="mt-8 px-6 py-3 rounded-full text-sm text-white tracking-widest"
             style={{ background: "linear-gradient(135deg, #f87171, #ec4899)" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            手紙に戻る
+            次のメッセージ ♡
           </motion.button>
         </motion.div>
       </motion.div>
@@ -604,6 +604,93 @@ function ConfettiBurst() {
 }
 
 // ============================================================
+// MINI LETTER
+// ============================================================
+function MiniLetter({ onBack }: { onBack: () => void }) {
+  const [countdown, setCountdown] = useState(10);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCountdown((c) => {
+        if (c <= 1) { clearInterval(id); onBack(); return 0; }
+        return c - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [onBack]);
+
+  return (
+    <motion.div
+      className="min-h-screen flex items-center justify-center px-6"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="w-full max-w-sm">
+        <motion.div
+          className="relative rounded-2xl overflow-hidden"
+          style={{
+            background: "#FFFDF8",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.10)",
+            border: "1px solid rgba(220,195,160,0.4)",
+          }}
+          initial={{ y: 30 }}
+          animate={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 180, damping: 16 }}
+        >
+          <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, #f9a8a8, #fca5a5, transparent)" }} />
+
+          <div className="px-8 py-10 text-center">
+            <motion.div
+              animate={{ scale: [1, 1.12, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="text-4xl mb-6"
+            >
+              ♡
+            </motion.div>
+
+            <motion.p
+              className="text-[#4A3F35] text-lg font-light leading-relaxed"
+              style={{ fontFamily: "var(--font-serif)" }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              これからきみにたっくさん
+              <br />Babyさせないとねえ〜
+            </motion.p>
+
+            {/* カウントダウン */}
+            <motion.p
+              className="text-[#C8A882] text-xs mt-8 tracking-widest"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              {countdown}秒後に最初に戻ります
+            </motion.p>
+
+            {/* プログレスバー */}
+            <div className="w-full h-1 rounded-full mt-2 overflow-hidden" style={{ background: "#F0DEC8" }}>
+              <motion.div
+                className="h-full rounded-full"
+                style={{ background: "linear-gradient(90deg, #f87171, #ec4899)" }}
+                initial={{ width: "100%" }}
+                animate={{ width: "0%" }}
+                transition={{ duration: 10, ease: "linear" }}
+              />
+            </div>
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, #fca5a5, #f9a8a8, transparent)" }} />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ============================================================
 // LETTER CONTENT
 // ============================================================
 function LetterPage({ onQuiz }: { onQuiz: () => void }) {
@@ -765,7 +852,7 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
 // MAIN APP
 // ============================================================
 export default function Home() {
-  const [phase, setPhase] = useState<"envelope" | "letter" | "quiz">("envelope");
+  const [phase, setPhase] = useState<"envelope" | "letter" | "quiz" | "mini-letter">("envelope");
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
@@ -808,7 +895,12 @@ export default function Home() {
           )}
           {phase === "quiz" && (
             <motion.div key="quiz" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <QuizScreen onBack={() => setPhase("letter")} />
+              <QuizScreen onNext={() => setPhase("mini-letter")} />
+            </motion.div>
+          )}
+          {phase === "mini-letter" && (
+            <motion.div key="mini-letter" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <MiniLetter onBack={() => setPhase("envelope")} />
             </motion.div>
           )}
         </AnimatePresence>
