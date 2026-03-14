@@ -270,7 +270,7 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<"correct" | "wrong" | null>(null);
 
   const q = quizData[current];
 
@@ -279,7 +279,7 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
     setSelected(idx);
     const isCorrect = idx === q.correct;
     if (isCorrect) setScore((s) => s + 1);
-    setFeedback(isCorrect ? "まあまあやるやん" : "は？きみいどゆこと？");
+    setFeedback(isCorrect ? "correct" : "wrong");
     setTimeout(() => {
       setFeedback(null);
       if (current + 1 >= quizData.length) {
@@ -288,67 +288,214 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
         setCurrent((c) => c + 1);
         setSelected(null);
       }
-    }, 1400);
+    }, 1800);
   };
 
-  const finalMessages: Record<number, { emoji: string; text: string }> = {
-    0: { emoji: "😡", text: "は？君脳みそついてないか😡" },
-    1: { emoji: "😤", text: "留学で記憶飛んでますね、最低！" },
-    2: { emoji: "😏", text: "まあまあ耐えてますねえきみい" },
-    3: { emoji: "✨", text: "おお！さっすが俺の老婆✨" },
-  };
-
+  // ---- 結果画面 ----
   if (finished) {
-    const result = finalMessages[score];
+    const finalMap: Record<number, { emoji: string; text: string; animVariant: string }> = {
+      0: { emoji: "😡", text: "は？君脳みそついてないか😡", animVariant: "angry" },
+      1: { emoji: "😤", text: "留学で記憶飛んでますね、最低！", animVariant: "drop" },
+      2: { emoji: "😏", text: "まあまあ耐えてますねえきみい", animVariant: "meh" },
+      3: { emoji: "🎉", text: "おお！さっすが俺の老婆✨", animVariant: "celebrate" },
+    };
+    const result = finalMap[score];
+
+    const cardVariants: Record<string, { x?: number[]; y?: number[]; rotate?: number[]; scale?: number[] }> = {
+      angry:   { x: [0, -14, 14, -14, 14, -8, 8, -4, 4, 0] },
+      drop:    { y: [0, -6, 0, -3, 0] },
+      meh:     { rotate: [0, -2, 2, -1, 0] },
+      celebrate: { scale: [1, 1.04, 1], rotate: [0, 1, -1, 0] },
+    };
+
     return (
       <motion.div
         className="min-h-screen flex flex-col items-center justify-center px-6"
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
-        <div
+        {/* 3/3 confetti */}
+        {score === 3 && <ConfettiBurst />}
+
+        <motion.div
           className="w-full max-w-sm rounded-2xl p-10 text-center"
           style={{
             background: "#FFFDF8",
             boxShadow: "0 20px 60px rgba(0,0,0,0.10)",
             border: "1px solid rgba(220,195,160,0.4)",
           }}
+          animate={cardVariants[result.animVariant]}
+          transition={{ duration: 0.6, delay: 0.3, ease: "easeInOut" }}
         >
           <motion.div
-            animate={{ scale: [1, 1.15, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="text-5xl mb-4"
+            className="text-6xl mb-4 inline-block"
+            animate={
+              result.animVariant === "celebrate"
+                ? { rotate: [0, -15, 15, -10, 10, 0], scale: [1, 1.3, 1] }
+                : result.animVariant === "angry"
+                ? { rotate: [0, -10, 10, -10, 10, 0] }
+                : { scale: [1, 1.1, 1] }
+            }
+            transition={{ duration: 0.8, delay: 0.4, repeat: result.animVariant === "celebrate" ? 2 : 0 }}
           >
             {result.emoji}
           </motion.div>
+
           <p className="text-[#9B8874] text-xs tracking-[0.45em] uppercase mb-2">結果発表</p>
-          <p className="text-5xl font-bold text-rose-500 mb-2">
-            {score}<span className="text-2xl text-[#B09070]"> / 3</span>
-          </p>
-          <p className="text-[#4A3F35] text-base leading-relaxed mt-4" style={{ fontFamily: "var(--font-serif)" }}>
+
+          <motion.p
+            className="text-6xl font-bold text-rose-500 mb-2 tabular-nums"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.2 }}
+          >
+            {score}<span className="text-3xl text-[#B09070]"> / 3</span>
+          </motion.p>
+
+          <motion.p
+            className="text-xl font-bold leading-relaxed mt-5"
+            style={{
+              fontFamily: "var(--font-serif)",
+              color: score === 3 ? "#ec4899" : score === 0 ? "#dc2626" : "#4A3F35",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
             {result.text}
-          </p>
+          </motion.p>
+
           <motion.button
+            whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             onClick={onBack}
             className="mt-8 px-6 py-3 rounded-full text-sm text-white tracking-widest"
             style={{ background: "linear-gradient(135deg, #f87171, #ec4899)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
           >
             手紙に戻る
           </motion.button>
-        </div>
+        </motion.div>
       </motion.div>
     );
   }
 
+  // ---- クイズ本体 ----
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center px-6 py-12"
+      className="min-h-screen flex flex-col items-center justify-center px-6 py-12 relative overflow-hidden"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      {/* フィードバックオーバーレイ */}
+      <AnimatePresence>
+        {feedback === "correct" && (
+          <motion.div
+            key="correct"
+            className="fixed inset-0 flex items-center justify-center pointer-events-none"
+            style={{ zIndex: 50 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.4 } }}
+          >
+            {/* 背景フラッシュ */}
+            <motion.div
+              className="absolute inset-0"
+              style={{ background: "rgba(251, 113, 133, 0.15)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ duration: 0.6 }}
+            />
+            {/* メインテキスト */}
+            <motion.div
+              className="relative text-center"
+              initial={{ scale: 0, rotate: -10 }}
+              animate={{ scale: [0, 1.3, 1], rotate: [-10, 5, 0] }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            >
+              <p
+                className="text-5xl font-black text-rose-500 drop-shadow-lg"
+                style={{ fontFamily: "var(--font-serif)", textShadow: "0 4px 20px rgba(244,63,94,0.4)" }}
+              >
+                まあまあやるやん
+              </p>
+              {/* 周囲のキラキラ */}
+              {["✨","⭐","💫","✨","⭐"].map((s, i) => (
+                <motion.span
+                  key={i}
+                  className="absolute text-2xl"
+                  style={{ top: `${[-40,-20,40,30,-30][i]}px`, left: `${[-60,70,-70,80,-80][i]}px` }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: [0, 1, 0], scale: [0, 1.4, 0], rotate: [0, 360] }}
+                  transition={{ delay: i * 0.08, duration: 0.7 }}
+                >
+                  {s}
+                </motion.span>
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+
+        {feedback === "wrong" && (
+          <motion.div
+            key="wrong"
+            className="fixed inset-0 flex items-center justify-center pointer-events-none"
+            style={{ zIndex: 50 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.4 } }}
+          >
+            {/* 背景フラッシュ（グレー） */}
+            <motion.div
+              className="absolute inset-0"
+              style={{ background: "rgba(100, 80, 60, 0.12)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0.5] }}
+              transition={{ duration: 0.5 }}
+            />
+            {/* メインテキスト */}
+            <motion.div
+              className="relative text-center px-6"
+              initial={{ scale: 0.3, opacity: 0 }}
+              animate={{
+                scale: 1,
+                opacity: 1,
+                x: [0, -12, 12, -10, 10, -6, 6, 0],
+              }}
+              transition={{ scale: { type: "spring", stiffness: 400, damping: 10 }, x: { duration: 0.5, delay: 0.1 } }}
+            >
+              <p
+                className="text-5xl font-black drop-shadow-lg"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  color: "#7C5C4A",
+                  textShadow: "0 4px 16px rgba(120,80,60,0.3)",
+                }}
+              >
+                は？きみいどゆこと？
+              </p>
+              {/* 怒りマーク */}
+              {["💢","💢","💢"].map((s, i) => (
+                <motion.span
+                  key={i}
+                  className="absolute text-xl"
+                  style={{ top: `${[-35, -30, -25][i]}px`, left: `${[0, 50, 100][i]}px` }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: [0, 1, 0], y: [10, -10, -20] }}
+                  transition={{ delay: i * 0.1, duration: 0.8 }}
+                >
+                  {s}
+                </motion.span>
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="w-full max-w-sm">
         {/* Progress */}
         <div className="flex gap-2 mb-6 justify-center">
@@ -402,15 +549,8 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
             let border = "rgba(220,195,160,0.5)";
             let textColor = "#4A3F35";
             if (selected !== null) {
-              if (idx === q.correct) {
-                bg = "#FFF0F0";
-                border = "#f87171";
-                textColor = "#dc2626";
-              } else if (idx === selected) {
-                bg = "#F5F0E8";
-                border = "#C8A882";
-                textColor = "#9B8874";
-              }
+              if (idx === q.correct) { bg = "#FFF0F0"; border = "#f87171"; textColor = "#dc2626"; }
+              else if (idx === selected) { bg = "#F5F0E8"; border = "#C8A882"; textColor = "#9B8874"; }
             }
             return (
               <motion.button
@@ -418,13 +558,7 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
                 whileTap={selected === null ? { scale: 0.97 } : {}}
                 onClick={() => handleSelect(idx)}
                 className="w-full py-3 px-5 rounded-xl text-sm text-left transition-all duration-200"
-                style={{
-                  background: bg,
-                  border: `1.5px solid ${border}`,
-                  color: textColor,
-                  fontFamily: "var(--font-serif)",
-                  cursor: selected !== null ? "default" : "pointer",
-                }}
+                style={{ background: bg, border: `1.5px solid ${border}`, color: textColor, fontFamily: "var(--font-serif)", cursor: selected !== null ? "default" : "pointer" }}
               >
                 <span className="mr-3 text-[#C8A882]">{["A", "B", "C"][idx]}.</span>
                 {choice}
@@ -433,27 +567,27 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
             );
           })}
         </div>
-
-        {/* Per-question feedback */}
-        <AnimatePresence>
-          {feedback && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="text-center mt-5 text-base font-bold"
-              style={{
-                color: feedback === "まあまあやるやん" ? "#dc2626" : "#9B8874",
-                fontFamily: "var(--font-serif)",
-              }}
-            >
-              {feedback}
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </motion.div>
   );
+}
+
+// confetti helper
+function ConfettiBurst() {
+  useEffect(() => {
+    import("canvas-confetti").then((mod) => {
+      const confetti = mod.default;
+      const end = Date.now() + 2000;
+      const colors = ["#f87171", "#ec4899", "#fbbf24", "#34d399", "#60a5fa"];
+      const frame = () => {
+        confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors });
+        confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      };
+      frame();
+    });
+  }, []);
+  return null;
 }
 
 // ============================================================
