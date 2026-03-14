@@ -199,7 +199,6 @@ function LoveReasons() {
     { icon: "", text: "言葉をいつもかけてくれる" },
     { icon: "", text: "たっくさんの笑顔を俺に見せてくれる" },
     { icon: "", text: "離れていてもそばにいるような雰囲気作りができる" },
-    { icon: "", text: "これからの未来を、Beckyと一緒に作っていきたい" },
   ];
 
   return (
@@ -673,6 +672,17 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
           <LoveReasons />
 
           <Divider symbol="❀" />
+
+          <motion.p
+            className="text-center text-[#4A3F35] font-light leading-loose text-[0.97rem] my-6"
+            style={{ fontFamily: "var(--font-serif)" }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            これからの未来を、Beckyと一緒に作っていきたい
+          </motion.p>
 
           <PhotoFrame src="/images/IMG_4250.JPG" caption="俺たち可愛すぎ" alt="思い出の写真4" rotation={-1.5} />
           <PhotoFrame src="/images/IMG_2954.PNG" caption="この笑顔が好き" alt="思い出の写真5" rotation={2.5} />
