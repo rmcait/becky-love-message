@@ -72,7 +72,7 @@ function EnvelopeScreen({ onOpen }: { onOpen: () => void }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.7 }}
       >
-        あなただけへ
+        Beckyへ
       </motion.p>
 
       <motion.div
