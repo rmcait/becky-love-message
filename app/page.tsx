@@ -270,24 +270,36 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [feedback, setFeedback] = useState<string | null>(null);
 
   const q = quizData[current];
 
   const handleSelect = (idx: number) => {
     if (selected !== null) return;
     setSelected(idx);
-    if (idx === q.correct) setScore((s) => s + 1);
+    const isCorrect = idx === q.correct;
+    if (isCorrect) setScore((s) => s + 1);
+    setFeedback(isCorrect ? "まあまあやるやん" : "は？きみいどゆこと？");
     setTimeout(() => {
+      setFeedback(null);
       if (current + 1 >= quizData.length) {
         setFinished(true);
       } else {
         setCurrent((c) => c + 1);
         setSelected(null);
       }
-    }, 1200);
+    }, 1400);
+  };
+
+  const finalMessages: Record<number, { emoji: string; text: string }> = {
+    0: { emoji: "😡", text: "は？君脳みそついてないか😡" },
+    1: { emoji: "😤", text: "留学で記憶飛んでますね、最低！" },
+    2: { emoji: "😏", text: "まあまあ耐えてますねえきみい" },
+    3: { emoji: "✨", text: "おお！さっすが俺の老婆✨" },
   };
 
   if (finished) {
+    const result = finalMessages[score];
     return (
       <motion.div
         className="min-h-screen flex flex-col items-center justify-center px-6"
@@ -308,18 +320,14 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             className="text-5xl mb-4"
           >
-            {score === 3 ? "🎉" : score === 2 ? "😊" : "💪"}
+            {result.emoji}
           </motion.div>
           <p className="text-[#9B8874] text-xs tracking-[0.45em] uppercase mb-2">結果発表</p>
           <p className="text-5xl font-bold text-rose-500 mb-2">
             {score}<span className="text-2xl text-[#B09070]"> / 3</span>
           </p>
-          <p className="text-[#4A3F35] text-sm leading-relaxed mt-4 font-light" style={{ fontFamily: "var(--font-serif)" }}>
-            {score === 3
-              ? "全問正解！やっぱりBeckyのこと、ちゃんと見てるよ。ありがとう。"
-              : score === 2
-              ? "あと少し！でも、俺のこと覚えてくれててありがとう。"
-              : "これを機に、もっと俺のことも知ってね♡"}
+          <p className="text-[#4A3F35] text-base leading-relaxed mt-4" style={{ fontFamily: "var(--font-serif)" }}>
+            {result.text}
           </p>
           <motion.button
             whileTap={{ scale: 0.96 }}
@@ -425,6 +433,24 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
             );
           })}
         </div>
+
+        {/* Per-question feedback */}
+        <AnimatePresence>
+          {feedback && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="text-center mt-5 text-base font-bold"
+              style={{
+                color: feedback === "まあまあやるやん" ? "#dc2626" : "#9B8874",
+                fontFamily: "var(--font-serif)",
+              }}
+            >
+              {feedback}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
