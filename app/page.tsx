@@ -493,7 +493,7 @@ function LetterPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
           >
-            〇〇へ
+            Beckyへ
           </motion.h1>
 
           <Divider />
