@@ -247,7 +247,7 @@ function Divider({ symbol = "✿" }: { symbol?: string }) {
 const quizData = [
   {
     photo: "/images/beauty_1732973176384.JPEG",
-    question: "この写真でBeckyが着ていたニットの色は？",
+    question: "この写真でBeckyが履いていたパンツの色は？",
     choices: ["水色", "白", "ベージュ"],
     correct: 2,
   },
