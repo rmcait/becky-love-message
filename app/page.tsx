@@ -661,16 +661,6 @@ function MiniLetter({ onBack }: { onBack: () => void }) {
               <br />Babyさせないとねえ〜
             </motion.p>
 
-            {/* プログレスバー */}
-            <div className="w-full h-1 rounded-full mt-2 overflow-hidden" style={{ background: "#F0DEC8" }}>
-              <motion.div
-                className="h-full rounded-full"
-                style={{ background: "linear-gradient(90deg, #f87171, #ec4899)" }}
-                initial={{ width: "100%" }}
-                animate={{ width: "0%" }}
-                transition={{ duration: 10, ease: "linear" }}
-              />
-            </div>
           </div>
 
           <div className="absolute bottom-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, transparent, #fca5a5, #f9a8a8, transparent)" }} />
