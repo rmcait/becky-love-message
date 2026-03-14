@@ -539,7 +539,7 @@ function LetterPage({ onQuiz }: { onQuiz: () => void }) {
           <div className="text-right">
             <p className="text-[#9B8874] text-sm font-light mb-1 tracking-widest">愛をこめて</p>
             <p className="text-[#3C3830] text-xl tracking-wider" style={{ fontFamily: "var(--font-serif)" }}>
-              〇〇より
+              Rioより
             </p>
             <motion.p
               className="text-rose-400 text-base mt-2 tracking-widest"
