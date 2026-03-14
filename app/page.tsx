@@ -546,7 +546,7 @@ function QuizScreen({ onBack }: { onBack: () => void }) {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={q.photo} alt="クイズ写真" className="w-full object-cover block" style={{ aspectRatio: "4/3" }} />
-              <p className="text-center text-[#C8A882] text-xs mt-3">{current === 2 ? "ぐっすりピーポー" : "？？？"}</p>
+              <p className="text-center text-[#C8A882] text-xs mt-3">{current === 2 ? "ぐっすりピーポー" : current === 1 ? "中国旅行" : "？？？"}</p>
             </div>
           </motion.div>
         </AnimatePresence>
