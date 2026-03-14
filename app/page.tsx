@@ -258,9 +258,9 @@ const quizData = [
   },
   {
     photo: "/images/IMG_3635.PNG",
-    question: "この時のBeckyは何をしていた？",
-    choices: ["勉強してた", "ご飯食べてた", "寝てた"],
-    correct: 2,
+    question: "この直前Beckyは何してた？",
+    choices: ["へリョンの家におった", "電話してた", "シャワー浴びてた"],
+    correct: 1,
   },
 ];
 
