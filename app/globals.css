@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #faf8f4;
+}
+
+/* Paper texture lines */
+.paper-lines {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    #e8d5b5 31px,
+    #e8d5b5 32px
+  );
+}
+
+/* Stamp effect */
+.stamp {
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
