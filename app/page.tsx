@@ -248,8 +248,8 @@ const quizData = [
   {
     photo: "/images/beauty_1732973176384.JPEG",
     question: "この写真でBeckyが着ていたニットの色は？",
-    choices: ["ピンク", "黄色", "白"],
-    correct: 0,
+    choices: ["水色", "白", "ベージュ"],
+    correct: 2,
   },
   {
     photo: "/images/beauty_1740204086175.JPEG",
