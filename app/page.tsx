@@ -279,11 +279,11 @@ function PhotoFrame({
 function LoveReasons() {
   // ✏️ ここのリストを自由に編集してください
   const reasons = [
-    { icon: "☀️", text: "あなたの笑顔で、毎日が明るくなる" },
-    { icon: "🌙", text: "寝顔が世界で一番かわいい（本当）" },
-    { icon: "✨", text: "怒ってる顔も、ちょっと好き（ごめん）" },
-    { icon: "🎵", text: "一緒にいると時間が経つのが早すぎる" },
-    { icon: "♡", text: "あなたといる自分が、いちばん好き" },
+    { icon: "☀️", text: "あなたの笑顔が、俺の一番の原動力" },
+    { icon: "💪", text: "Beckyのためなら、どんなことも頑張れる" },
+    { icon: "🌙", text: "離れてても、いつもそばにいる気がする" },
+    { icon: "✨", text: "あなたの存在が、俺を前に進ませてくれる" },
+    { icon: "♡", text: "これからの未来を、Beckyと一緒に作っていきたい" },
   ];
 
   return (
@@ -404,7 +404,6 @@ function LetterPage() {
             rotation={1.5}
           />
 
-          {/* ✏️ 手紙の本文をここに書いてください */}
           <div
             className="space-y-5 text-[#4A3F35] leading-loose font-light text-[0.97rem]"
             style={{ fontFamily: "var(--font-serif)" }}
@@ -414,8 +413,8 @@ function LetterPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              {/* ✏️ 第1段落 */}
-              あのさ、ごめんね。
+              元気にしてる？テストで忙しい時期やと思うけど、無理しすぎんなよ。
+              まずはちゃんと謝らせて。この前は感情的になって、思ってもない言葉までぶつけてしまった。ほんまにごめんな。
             </motion.p>
 
             <motion.p
@@ -423,8 +422,7 @@ function LetterPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65 }}
             >
-              {/* ✏️ 第2段落 */}
-              うまく言葉にできないこともあるけど、あなたへの気持ちはちゃんとある。ここに書いたこと、全部本当のことだよ。
+              なんであんなふうになったか、ちゃんと伝えたくて。Beckyにもっといろんなことをしてあげたくて、でもそれができてない自分がずっと悔しかった。その情けなさが、あの時爆発してしまった。Beckyが原因やなくて、ぜんぶ俺自身の問題やった。
             </motion.p>
 
             <motion.p
@@ -432,8 +430,7 @@ function LetterPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              {/* ✏️ 第3段落 */}
-              怒らせてごめんなさい。でもね、怒ってるあなたも可愛くて、それを言ったらもっと怒られそうで言えなかった。
+              自分の「軸」を見失ってたことも、ちゃんと反省してる。余裕がない時こそ、ぶれずにいられるように。これから意識して、もっとちゃんとした自分になる。それがBeckyへの俺なりの答えやと思ってる。
             </motion.p>
           </div>
 
@@ -479,7 +476,6 @@ function LetterPage() {
             rotation={2}
           />
 
-          {/* ✏️ 締めの言葉をここに書いてください */}
           <div
             className="space-y-4 text-[#4A3F35] leading-loose font-light text-[0.97rem] mt-4"
             style={{ fontFamily: "var(--font-serif)" }}
@@ -490,8 +486,7 @@ function LetterPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              {/* ✏️ 締め第1段落 */}
-              これからも、ずっと一緒にいてね。
+              喧嘩しても、やっぱりBeckyと一緒にいたい。その気持ちだけは、留学に行った後も今も、ずっと変わってない。今の状況は俺が必ず変えてみせる。不安なんてどうでもよくなるくらい、めちゃくちゃ良い生活を絶対にさせてあげる。
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -499,8 +494,7 @@ function LetterPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
             >
-              {/* ✏️ 締め第2段落 */}
-              大好きだよ。
+              Beckyを愛してるからこそ、俺についてきてほしい。絶対に後悔はさせへん。改めて、ほんまにごめんな。そして、いつもありがとう。心から、愛してるよ。
             </motion.p>
           </div>
 
