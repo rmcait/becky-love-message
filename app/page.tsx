@@ -253,9 +253,9 @@ const quizData = [
   },
   {
     photo: "/images/beauty_1740204086175.JPEG",
-    question: "この写真はどの国で撮ったもの？",
-    choices: ["日本", "中国", "韓国"],
-    correct: 1,
+    question: "この前の日の夜何してた？",
+    choices: ["四川料理食べた", "高校の制服着た", "足湯マッサージに行った"],
+    correct: 2,
   },
   {
     photo: "/images/IMG_3635.PNG",
