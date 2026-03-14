@@ -195,17 +195,17 @@ function PhotoFrame({ src, caption, alt, rotation = 2 }: { src: string; caption:
 // ============================================================
 function LoveReasons() {
   const reasons = [
-    { icon: "☀️", text: "あなたの笑顔が、俺の一番の原動力" },
-    { icon: "💪", text: "Beckyのためなら、どんなことも頑張れる" },
-    { icon: "🌙", text: "離れてても、いつもそばにいる気がする" },
-    { icon: "✨", text: "あなたの存在が、俺を前に進ませてくれる" },
-    { icon: "♡", text: "これからの未来を、Beckyと一緒に作っていきたい" },
+    { icon: "", text: "Beckyの笑顔が、俺の一番の原動力" },
+    { icon: "", text: "Beckyのためなら、どんなことも頑張れる" },
+    { icon: "", text: "離れてても、いつもそばにいる気がする" },
+    { icon: "", text: "Beckyの存在が、俺を前に進ませてくれる" },
+    { icon: "", text: "これからの未来を、Beckyと一緒に作っていきたい" },
   ];
 
   return (
     <div className="my-8">
       <p className="text-center text-[#9B8874] text-xs tracking-[0.45em] uppercase mb-6">
-        あなたが好きな理由
+        Beckyが好きな理由
       </p>
       <div className="space-y-4">
         {reasons.map((r, i) => (
@@ -217,7 +217,7 @@ function LoveReasons() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ delay: i * 0.1, duration: 0.45 }}
           >
-            <span className="text-2xl flex-shrink-0">{r.icon}</span>
+            {r.icon && <span className="text-2xl flex-shrink-0">{r.icon}</span>}
             <span className="font-light leading-relaxed" style={{ fontFamily: "var(--font-serif)" }}>
               {r.text}
             </span>
