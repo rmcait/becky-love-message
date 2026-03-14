@@ -498,12 +498,23 @@ function LetterPage() {
 
           <Divider />
 
-          {/* ✏️ 写真1を入れる場合: src="/photo1.jpg" を追記してください */}
-          {/* 例: <PhotoFrame src="/photo1.jpg" caption="..." alt="..." rotation={2} /> */}
           <PhotoFrame
+            src="/images/IMG_0547.jpeg"
             caption="ここにキャプションを入れてね"
-            alt="思い出の写真"
+            alt="思い出の写真1"
             rotation={2}
+          />
+          <PhotoFrame
+            src="/images/IMG_0621.jpeg"
+            caption="大好きな瞬間"
+            alt="思い出の写真2"
+            rotation={-2}
+          />
+          <PhotoFrame
+            src="/images/IMG_0861.jpeg"
+            caption="一緒にいると楽しいね"
+            alt="思い出の写真3"
+            rotation={1.5}
           />
 
           {/* ✏️ 手紙の本文をここに書いてください */}
@@ -547,11 +558,41 @@ function LetterPage() {
 
           <Divider symbol="❀" />
 
-          {/* ✏️ 写真2を入れる場合: src="/photo2.jpg" を追記してください */}
           <PhotoFrame
-            caption="大好きな瞬間"
-            alt="思い出の写真2"
+            src="/images/IMG_4250.JPG"
+            caption="この笑顔が好き"
+            alt="思い出の写真4"
             rotation={-1.5}
+          />
+          <PhotoFrame
+            src="/images/IMG_2954.PNG"
+            caption="ずっと覚えてる"
+            alt="思い出の写真5"
+            rotation={2.5}
+          />
+          <PhotoFrame
+            src="/images/IMG_3556.PNG"
+            caption="あなたといる時間"
+            alt="思い出の写真6"
+            rotation={-2}
+          />
+          <PhotoFrame
+            src="/images/IMG_3635.PNG"
+            caption="大切な思い出"
+            alt="思い出の写真7"
+            rotation={1}
+          />
+          <PhotoFrame
+            src="/images/beauty_1732973176384.JPEG"
+            caption="かわいいよ"
+            alt="思い出の写真8"
+            rotation={-1.5}
+          />
+          <PhotoFrame
+            src="/images/beauty_1740204086175.JPEG"
+            caption="いつも隣にいてね"
+            alt="思い出の写真9"
+            rotation={2}
           />
 
           {/* ✏️ 締めの言葉をここに書いてください */}
